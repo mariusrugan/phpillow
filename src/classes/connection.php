@@ -93,7 +93,7 @@ abstract class phpillowConnection
      */
     public function __construct( $host, $port, $username = null, $password = null, $ip = null )
     {
-        $this->options['host']     = (string) str_replace('https://','ssl://',$host);
+        $this->options['host']     = (string) str_replace('https://', 'ssl://', str_replace("http://", "", $host) );
         $this->options['port']     = (int) $port;
         $this->options['username'] = $username;
         $this->options['password'] = $password;
