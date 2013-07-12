@@ -60,7 +60,26 @@ class phpillowResponseFactory
      */
     public static function parse( array $headers, $body, $raw = false )
     {
-        $response = $raw === true ? $body : json_decode( $body, true );
+        // Define possible JSON Errors
+        $constants = get_defined_constants(true);
+        $json_errors = array();
+        foreach ($constants["json"] as $name => $value) {
+            if (!strncmp($name, "JSON_ERROR_", 11)) {
+                $json_errors[$value] = $name;
+            }
+        }
+
+        $jsonBody = json_decode( $body, true );
+        if ( $jsonBody === null
+            && $raw === false
+        ) {
+            $lastErrNo = json_last_error();
+            throw new \phpillowResponseErrorException("JSON parse failed", array("error"=>$json_errors[$lastErrNo], "reason"=>'Malformed JSON Response from CouchDB'));
+        }
+
+        $response = $raw === true ? $body : $jsonBody;
+
+
 
         // To detect the type of the response from the couch DB server we use
         // the response status which indicates the return type.
