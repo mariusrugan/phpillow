@@ -255,14 +255,18 @@ class phpillowCustomConnection extends phpillowConnection
                     $bytesLeft = $bytesToRead;
                     while ( $bytesLeft > 0 )
                     {
-                        $body .= $read = fread( $this->connection, $bytesLeft + 2 );
+                        // Updated 24/07/13 - mtaylor. Trimming to prevent chunks having slipery control characters
+                        // inserted by some servers - load balancing SSL server.
+                        $read = fread( $this->connection, $bytesLeft + 2 );
+                        $body .= trim($read);
                         $bytesLeft -= strlen( $read );
                     }
                 }
             } while ( $bytesToRead > 0 );
 
             // Chop off \r\n from the end.
-            $body = substr( $body, 0, -2 );
+            // Updated 24/07/13 - mtaylor. Trim function will remove these more safely than culling any of the last two
+            $body = trim($body);
         }
 
         // Reset the connection if the server asks for it.
