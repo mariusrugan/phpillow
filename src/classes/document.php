@@ -71,9 +71,11 @@ abstract class phpillowDocument
     /**
      * Indicates whether to keep old revisions of this document or not.
      *
+     * 05/08/13 - mtaylor - CouchDB stores revisions and this should be used by default. This customisation could be
+     * useful but should be enabled at request not by default.
      * @var bool
      */
-    protected $versioned = true;
+    protected $versioned = false;
 
     /**
      * Flag, indicating if current document has already been modified
