@@ -358,7 +358,12 @@ abstract class phpillowDocument
      */
     public function checkTypeOfResponse( phpillowResponse $response )
     {
-        if ( $response->type != $this->getType() )
+        /**
+         * mtaylor 05/08/2013 - type is just a property on the document if it is required it should go into the required
+         * list. This maintains backwards compatibility by allowing the CouchDB document to not have a type property.
+         * However it is preferred via the saving side of phpillow.
+         */
+        if ( isset($response->type) && $response->type != $this->getType() )
         {
             throw new phpillowResponseNotFoundErrorException(
                 array(
