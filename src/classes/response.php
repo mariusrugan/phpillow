@@ -60,6 +60,7 @@ class phpillowResponseFactory
      */
     public static function parse( array $headers, $body, $raw = false )
     {
+
         $response = $raw === true ? $body : json_decode( $body, true );
 
         // To detect the type of the response from the couch DB server we use

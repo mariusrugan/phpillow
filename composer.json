@@ -1,0 +1,21 @@
+{
+    "name": "arbit/phpillow",
+    "description": "Fitch Learning continued development of stalled project phpillow",
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "AUTHORS FILE"
+        },
+        {
+            "name": "Matthew Taylor",
+            "email": "matthew.taylor@fitchlearning.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload":    {
+       "classmap": ["src/classes/"]
+    }
+}
+

@@ -1,0 +1,7 @@
+# Ignore IDE project location
+.idea
+/vendor
+/build
+/.abc
+/.pear
+/composer.phar
